@@ -84,8 +84,8 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="historyberita.html"><i class="fa fa-circle-o"></i> History Grabbing Berita</a></li>
-                                <li class="active"><a href="beritamasuk.html"><i class="fa fa-circle-o"></i> Berita Masuk</a></li>
-                                <li><a href="beritaterfilter.html"><i class="fa fa-circle-o"></i> Berita Terfilter</a></li>
+                                <li><a href="beritamasuk.html"><i class="fa fa-circle-o"></i> Berita Masuk</a></li>
+                                <li class="active"><a href="beritaterfilter.html"><i class="fa fa-circle-o"></i> Berita Terfilter</a></li>
                             </ul>
                         </li>
 
@@ -246,7 +246,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Berita Masuk
+                        Berita Terfilter
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -267,16 +267,14 @@
                                     <script type="text/javascript">
                                         var a = 10;
                                         document.write("<table id='example1' class='table table-bordered table-striped'>");
-                                        document.write("<thead><tr><th>Tanggal</th><th>Judul</th><th>Sumber</th><th>Lihat</th><th>Komentar</th><th>Like</th><th>Dislike</th><th>Edit</th><th>Delete</th></tr></thead><tbody>");
-                                        for (i = 0; i < 100; i++) {
+                                        document.write("<thead><tr><th>Tanggal</th><th>Judul</th><th>Sumber</th><th>Penyebab</th><th>Akurasi</th><th>Edit</th><th>Delete</th></tr></thead><tbody>");
+                                        for (i = 0; i < 5; i++) {
                                             document.write("<tr>");
                                             document.write("<td>21/10/2016 6:45</td>");
                                             document.write("<td>Ini Hasil Uji Forensik Mabes Polri Soal Video Al Maidah 51</td>");
                                             document.write("<td>Islampos</td>");
-                                            document.write("<td>"+Math.floor((Math.random() * 100) + 1)+"</td>");
-                                            document.write("<td>5</td>");
-                                            document.write("<td>28</td>");
-                                            document.write("<td>3</td>");
+                                            document.write("<td>Spam</td>");
+                                            document.write("<td><span class='badge bg-light-blue'>"+Math.floor((Math.random() * 50) + 50)+"%</span></td>");
                                             document.write("<td><button type='button' class='btn btn-block btn-warning btn-xs'>Edit</button></td>");
                                             document.write("<td><button type='button' class='btn btn-block btn-danger btn-xs'>Delete</button></td>");
                                             document.write("</tr>");
