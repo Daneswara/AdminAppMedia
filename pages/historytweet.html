@@ -74,7 +74,7 @@
                             </a>
                         </li>
 
-                        <li class="active treeview">
+                        <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-laptop"></i>
                                 <span>Berita</span>
@@ -83,13 +83,13 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="active"><a href="historyberita.html"><i class="fa fa-circle-o"></i> History Grabbing Berita</a></li>
+                                <li><a href="historyberita.html"><i class="fa fa-circle-o"></i> History Grabbing Berita</a></li>
                                 <li><a href="beritamasuk.html"><i class="fa fa-circle-o"></i> Berita Masuk</a></li>
                                 <li><a href="beritaterfilter.html"><i class="fa fa-circle-o"></i> Berita Terfilter</a></li>
                             </ul>
                         </li>
 
-                        <li class="treeview">
+                        <li class="active treeview">
                             <a href="#">
                                 <i class="fa fa-laptop"></i>
                                 <span>Tweet</span>
@@ -98,9 +98,9 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> History Grabbing Tweet</a></li>
-                                <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Tweet Masuk</a></li>
-                                <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Tweet Terfilter</a></li>
+                                <li class="active"><a href="historytweet.html"><i class="fa fa-circle-o"></i> History Grabbing Tweet</a></li>
+                                <li><a href="tweetmasuk.html"><i class="fa fa-circle-o"></i> Tweet Masuk</a></li>
+                                <li><a href="tweetterfilter.html"><i class="fa fa-circle-o"></i> Tweet Terfilter</a></li>
                             </ul>
                         </li>
 
@@ -246,7 +246,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        History Grabbing Berita
+                        History Grabbing Tweet
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -267,19 +267,19 @@
                                     <script type="text/javascript">
                                         var a = 10;
                                         document.write("<table id='example1' class='table table-bordered table-striped'>");
-                                        document.write("<thead><tr><th>Tanggal</th><th>Jumlah Target Situs</th><th>Berita Masuk</th><th>Berita Terfilter</th><th>Persentase</th><th>Status</th><th>Log</th></tr></thead><tbody>");
+                                        document.write("<thead><tr><th>Tanggal</th><th>Jumlah Target Akun</th><th>Tweet Masuk</th><th>Tweet Terfilter</th><th>Persentase</th><th>Status</th><th>Log</th></tr></thead><tbody>");
                                         for (i = 0; i < 5; i++) {
                                             document.write("<tr>");
                                             document.write("<td>21/10/2016 6:45</td>");
-                                            document.write("<td>100</td>");
-                                            document.write("<td>"+Math.floor((Math.random() * 50) + 0)+"</td>");
+                                            document.write("<td>32</td>");
+                                            document.write("<td>"+Math.floor((Math.random() * 40) + 60)+"</td>");
                                             document.write("<td>"+Math.floor((Math.random() * 10) + 0)+"</td>");
                                             document.write("<td><span class='badge bg-light-blue'>"+Math.floor((Math.random() * 50) + 50)+"%</span></td>");
                                             document.write("<td><span class='label label-success'>Sukses</span></td>");
                                             document.write("<td>Cron Jobs berhasil dijalankan dengan baik</td>");
                                             document.write("</tr>");
                                         }
-                                        document.write("</tbody><tfoot><tr><th>Tanggal</th><th>Jumlah Target Situs</th><th>Berita Masuk</th><th>Berita Terfilter</th><th>Persentase</th><th>Status</th><th>Log</th></tr></tfoot><tbody></table>");
+                                        document.write("</tbody><tfoot><tr><th>Tanggal</th><th>Jumlah Target Akun</th><th>Tweet Masuk</th><th>Tweet Terfilter</th><th>Persentase</th><th>Status</th><th>Log</th></tr></tfoot><tbody></table>");
                                     </script>
                                 </div>
                                 <!-- /.box-body -->
