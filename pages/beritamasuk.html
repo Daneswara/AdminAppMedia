@@ -1,9 +1,13 @@
 <!DOCTYPE html>
+
 <html>
     <head>
+        <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+        <script src="../dist/js/fire.js">
+        </script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 2 | Data Tables</title>
+        <title>App Media - Berita Masuk</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -26,6 +30,21 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <style>
+            .example-modal .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: none;
+                z-index: 9999;
+                width: 100%;
+                height: 100%;
+            }
+
+            .example-modal .modal {
+                background: rgba(0,0,0,0.7);
+            }
+        </style>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -132,25 +151,7 @@
                             <div class="box">
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <script type="text/javascript">
-                                        var a = 10;
-                                        document.write("<table id='example1' class='table table-bordered table-striped'>");
-                                        document.write("<thead><tr><th>Tanggal</th><th>Judul</th><th>Sumber</th><th>Lihat</th><th>Komentar</th><th>Like</th><th>Dislike</th><th>Edit</th><th>Delete</th></tr></thead><tbody>");
-                                        for (i = 0; i < 100; i++) {
-                                            document.write("<tr>");
-                                            document.write("<td>21/10/2016 6:45</td>");
-                                            document.write("<td>Ini Hasil Uji Forensik Mabes Polri Soal Video Al Maidah 51</td>");
-                                            document.write("<td>Islampos</td>");
-                                            document.write("<td>"+Math.floor((Math.random() * 100) + 1)+"</td>");
-                                            document.write("<td>5</td>");
-                                            document.write("<td>28</td>");
-                                            document.write("<td>3</td>");
-                                            document.write("<td><button type='button' class='btn btn-block btn-warning btn-xs'>Edit</button></td>");
-                                            document.write("<td><button type='button' class='btn btn-block btn-danger btn-xs'>Delete</button></td>");
-                                            document.write("</tr>");
-                                        }
-                                        document.write("</tbody><tfoot><tr><th>Tanggal</th><th>Judul</th><th>Sumber</th><th>Lihat</th><th>Komentar</th><th>Dislike</th></tr></tfoot><tbody></table>");
-                                    </script>
+                                    <table id="example1" class="table table-bordered table-striped" width="100%"></table>
                                 </div>
                                 <!-- /.box-body -->
                             </div>
@@ -160,6 +161,39 @@
                     </div>
                     <!-- /.row -->
                 </section>
+                <div class="example-modal" >
+                    <div class="modal" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Edit Berita</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form role="form">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Judul</label>
+                                            <input type="text" id="judul" class="form-control" placeholder="Enter ...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Berita</label>
+                                            <textarea class="form-control" id="berita" rows="8" placeholder="Enter ..."></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="close" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                    <button type="button" id="simpan" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                </div>
                 <!-- /.content -->
             </div>
 
@@ -186,17 +220,80 @@
         <script src="../dist/js/demo.js"></script>
         <!-- page script -->
         <script>
-                                        $(function() {
-                                            $("#example1").DataTable();
-                                            $('#example2').DataTable({
-                                                "paging": true,
-                                                "lengthChange": false,
-                                                "searching": false,
-                                                "ordering": true,
-                                                "info": true,
-                                                "autoWidth": false
-                                            });
-                                        });
+            var t = $('#example1').DataTable({
+                columns: [
+                    {title: "Tanggal", width: "10%"},
+                    {title: "Judul", width: "40%"},
+                    {title: "Sumber", width: "10%"},
+                    {title: "Lihat", width: "5%"},
+                    {title: "Komentar", width: "5%"},
+                    {title: "Like", width: "5%"},
+                    {title: "Dislike", width: "5%"},
+                    {title: "Edit", width: "10%"},
+                    {title: "Delete", width: "10%"}
+                ]
+            });
+            bacaBerita(function(berita) {
+                t.row.add(berita).draw(false);
+            });
+
+
+            modal = document.getElementById('myModal');
+            simpan = document.getElementById("simpan");
+            judul = document.getElementById("judul");
+            berita = document.getElementById("berita");
+            var tutup = document.getElementById("close");
+            var close = document.getElementsByClassName("close")[0];
+
+
+            tutup.onclick = function() {
+                modal.style.display = "none";
+            }
+            close.onclick = function() {
+                modal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            simpan.onclick = function() {
+                var newBeritaData = {
+                    "judul": judul.value,
+                    "berita": berita.value
+                };
+                firebase.database().ref("berita/" + idberita).update(newBeritaData, function(error) {
+                    if (error) {
+                        alert("Error updating data:", error);
+                    } else {
+                        location.reload();
+                        alert("Sukses updating data");
+                    }
+                });
+            }
         </script>
     </body>
 </html>
+
+<!--<script type="text/javascript">
+    var table = document.getElementById("example1");
+    var row = table.insertRow(0);
+    var elements = document.getElementsByTagName('td');
+    var ref = firebase.database().ref("berita");
+    ref.on("child_added", function(snapshot) {
+            var row = table.insertRow(2);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            cell1.innerHTML = snapshot.val().tanggal;
+            cell2.innerHTML = "<a href='" + snapshot.val().url + "'>" + snapshot.val().judul + "</a>";
+            cell3.innerHTML = snapshot.val().sumber;
+            
+        },
+            function(errorObject) {  // Deal with errors
+                console.log("The read failed: " + errorObject.code);
+            });
+
+
+</script>-->
