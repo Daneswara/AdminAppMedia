@@ -110,5 +110,47 @@ function addHistoryBerita(brtmasuk, brtfilter, status, time, log){
     });
 }
 
+var i = 0;
+function bacaHistory(callback) {
+    firebase.database().ref("historyBerita")
+            .orderByChild("tanggal")
+            .on("child_added", function(snapshot) {
+                var history = [];
+                history[0] = snapshot.val().tanggal;
+                history[1] = snapshot.val().beritamasuk;
+                history[2] = snapshot.val().beritafilter;
+                history[3] = snapshot.val().waktu;
+                history[4] = snapshot.val().status;
+                history[5] = snapshot.val().log;
+                i++;
+                callback(history);
+            });
+
+}
+
+function addTweet(id, tokoh, username){
+    var date = myFunction();
+    firebase.database().ref('tweet/'+id).set({
+        tanggal: waktu,
+        tokoh: tokoh,
+        username: username
+    });
+}
+
+
+function bacaTweet(callback) {
+    firebase.database().ref("tweet")
+            .orderByChild("tanggal")
+            .on("child_added", function(snapshot) {
+                var tweet = [];
+                tweet[0] = snapshot.val().tanggal;
+                tweet[1] = "<a href='https://twitter.com/"+snapshot.val().username+"/status/"+snapshot.key+"'>"+snapshot.key+"</a>";
+                tweet[2] = "@"+snapshot.val().tokoh;
+                callback(tweet);
+            });
+
+}
+
+
 
 

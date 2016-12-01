@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>AdminLTE 2 | Data Tables</title>
+        <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+        <script src="../dist/js/fire.js"></script>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -134,23 +136,8 @@
                             <div class="box">
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <script type="text/javascript">
-                                        var a = 10;
-                                        document.write("<table id='example1' class='table table-bordered table-striped'>");
-                                        document.write("<thead><tr><th>Tanggal</th><th>Jumlah Target Situs</th><th>Berita Masuk</th><th>Berita Terfilter</th><th>Persentase</th><th>Status</th><th>Log</th></tr></thead><tbody>");
-                                        for (i = 0; i < 5; i++) {
-                                            document.write("<tr>");
-                                            document.write("<td>21/10/2016 6:45</td>");
-                                            document.write("<td>100</td>");
-                                            document.write("<td>"+Math.floor((Math.random() * 50) + 0)+"</td>");
-                                            document.write("<td>"+Math.floor((Math.random() * 10) + 0)+"</td>");
-                                            document.write("<td><span class='badge bg-light-blue'>"+Math.floor((Math.random() * 50) + 50)+"%</span></td>");
-                                            document.write("<td><span class='label label-success'>Sukses</span></td>");
-                                            document.write("<td>Cron Jobs berhasil dijalankan dengan baik</td>");
-                                            document.write("</tr>");
-                                        }
-                                        document.write("</tbody><tfoot><tr><th>Tanggal</th><th>Jumlah Target Situs</th><th>Berita Masuk</th><th>Berita Terfilter</th><th>Persentase</th><th>Status</th><th>Log</th></tr></tfoot><tbody></table>");
-                                    </script>
+                                    <table id="example1" class="table table-bordered table-striped" width="100%"></table>
+
                                 </div>
                                 <!-- /.box-body -->
                             </div>
@@ -186,17 +173,19 @@
         <script src="../dist/js/demo.js"></script>
         <!-- page script -->
         <script>
-                                        $(function() {
-                                            $("#example1").DataTable();
-                                            $('#example2').DataTable({
-                                                "paging": true,
-                                                "lengthChange": false,
-                                                "searching": false,
-                                                "ordering": true,
-                                                "info": true,
-                                                "autoWidth": false
-                                            });
-                                        });
+            var t = $('#example1').DataTable({
+                columns: [
+                    {title: "Tanggal", width: "15%"},
+                    {title: "Berita Masuk", width: "13%"},
+                    {title: "Berita Terfilter", width: "13%"},
+                    {title: "Waktu", width: "14%"},
+                    {title: "Status", width: "10%"},
+                    {title: "Log", width: "35%"}
+                ]
+            });
+            bacaHistory(function(history) {
+                t.row.add(history).draw(false);
+            });
         </script>
     </body>
 </html>

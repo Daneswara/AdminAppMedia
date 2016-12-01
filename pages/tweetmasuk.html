@@ -4,6 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>AdminLTE 2 | Data Tables</title>
+        <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+        <script src="../dist/js/fire.js">
+        </script>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -131,20 +134,7 @@
                             <div class="box">
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <script type="text/javascript">
-                                        var a = 10;
-                                        document.write("<table id='example1' class='table table-bordered table-striped'>");
-                                        document.write("<thead><tr><th>Tanggal</th><th>Tweet</th><th>Tokoh Politik</th><th>Delete</th></tr></thead><tbody>");
-                                        for (i = 0; i < 100; i++) {
-                                            document.write("<tr>");
-                                            document.write("<td>21/10/2016 6:45</td>");
-                                            document.write("<td>Ini Hasil Uji Forensik Mabes Polri Soal Video Al Maidah 51</td>");
-                                            document.write("<td>Ahok</td>");
-                                            document.write("<td><button type='button' class='btn btn-block btn-danger btn-xs'>Delete</button></td>");
-                                            document.write("</tr>");
-                                        }
-                                        document.write("</tbody><tfoot><tr><th>Tanggal</th><th>Judul</th><th>Sumber</th><th>Delete</th></tr></tfoot><tbody></table>");
-                                    </script>
+                                    <table id="example1" class="table table-bordered table-striped" width="100%"></table>
                                 </div>
                                 <!-- /.box-body -->
                             </div>
@@ -179,17 +169,16 @@
         <script src="../dist/js/demo.js"></script>
         <!-- page script -->
         <script>
-                                        $(function() {
-                                            $("#example1").DataTable();
-                                            $('#example2').DataTable({
-                                                "paging": true,
-                                                "lengthChange": false,
-                                                "searching": false,
-                                                "ordering": true,
-                                                "info": true,
-                                                "autoWidth": false
-                                            });
-                                        });
+            var t = $('#example1').DataTable({
+                columns: [
+                    {title: "Tanggal", width: "10%"},
+                    {title: "ID Tweet", width: "40%"},
+                    {title: "Tokoh Politik", width: "10%"}
+                ]
+            });
+            bacaTweet(function(tweet) {
+                t.row.add(tweet).draw(false);
+            });
         </script>
     </body>
 </html>
